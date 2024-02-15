@@ -71,6 +71,13 @@ def create_video_pages(config, channels, templates, html_ext):
                         download_buttons_html = generate_download_button("Download mp4", mp4path) + \
                                                 generate_download_button(f"Download {ext}", alt_file_url)
 
+                #Live-chat download
+                for ext in ["7z", "zip]:
+                    if (thumbnail_file := f"{base}.{ext}") in files:
+                        if("live_chat" in thumbnail_file)
+                            live_chat = config.files_web_path + (os.path.join(root, thumbnail_file))[
+                                                                len(config.files_path):]
+                            download_buttons_html += generate_download_button("Live Chat", live_chat)
                 # Description download
                 if (desc_file := f"{base}.description") in files:
                     desc_file_url = config.files_web_path + os.path.join(root, desc_file)[len(config.files_path):]
