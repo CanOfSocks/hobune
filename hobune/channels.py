@@ -34,7 +34,7 @@ def get_channel_details(v):
     channel_username = uploader_id if uploader_id and uploader_id[0] != "@" and uploader_id != channel_id else None
     channel_handle = uploader_id if uploader_id and uploader_id[0] == "@" else None
     # Fix broken .info.json files that don't have the uploader field
-    weak_name = "uploader" in v
+    weak_name = "uploader" not in v
     channel_name = v.get("uploader", channel_username or channel_handle or channel_id)
     return [
         channel_name,
