@@ -94,6 +94,35 @@ def create_video_pages(config, channels, templates, html_ext):
                         if "live_chat" in file and file.endswith(ext) and file.startswith(base):
                             live_chat_url = config.files_web_path + (os.path.join(root, file))[len(config.files_path):]
                             download_buttons_html += generate_download_button("Live Chat", live_chat_url)
+                
+                # Audio only
+                for ext in ["m4a", "mka", "ogg"]:
+                    if (audio_file := f"{base}.{ext}") in files:
+                        audio_file_url = config.files_web_path + os.path.join(root, audio_file)[len(config.files_path):]
+                        download_buttons_html += generate_download_button(f"Audio Only ({ext})", audio_file_url)
+
+                # Subtitles download
+                for vtt in (vtt for vtt in files if vtt.endswith(".vtt")):
+                    if vtt.startswith(base):
+                        vtt_url = os.path.join(config.files_web_path + root[len(config.files_path):], vtt)
+                        vtt_tag = vtt[len(base) + 1:-len('.vtt')]
+                        download_buttons_html += generate_download_button(f"Subtitles ({vtt_tag})", vtt_url)
+
+                for srt in (srt for srt in files if srt.endswith(".srt")):
+                    if srt.startswith(base):
+                        srt_url = os.path.join(config.files_web_path + root[len(config.files_path):], srt)
+                        #srt_tag = vtt[len(base) + 1:-len('.srt')]
+                        download_buttons_html += generate_download_button(f"Subtitles (AI-Generated)", srt_url)
+
+                #Info.json download
+                if (info_file := f"{base}.info.json") in files:
+                    info_file_url = config.files_web_path + os.path.join(root, info_file)[len(config.files_path):]
+                    download_buttons_html += generate_download_button("Info JSON", info_file_url)
+
+                #Torrent download
+                if (torrent_file := f"{base}.torrent") in files:
+                    torrent_url = config.files_web_path + os.path.join(root, torrent_file)[len(config.files_path):]
+                    download_buttons_html += generate_download_button("Torrent", torrent_url)
 
                 
                 # Create HTML

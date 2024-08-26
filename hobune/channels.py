@@ -162,14 +162,14 @@ def create_channel_pages(config, templates, channels, html_ext):
             subtitle = f"<p class=\"subtitle\">{get_channel_aka(channels[channel])}<br>{videos_count_str}</p>"
             for v in sorted(channels[channel].videos, key=lambda x: x['upload_date'], reverse=True):
                 cards += f"""
-                <div class="card searchable" data-search="{html.escape(v['title'])}" data-date="{v['upload_date']}" data-views="{v['view_count']}">
+                <div class="card searchable" data-search="{html.escape(v['title'])}" data-date="{v['upload_date']}" data-views="{v.get('view_count',"N/A")}">
                     <a href="{config.web_root}videos/{v['id']}{html_ext}" class="inner">
                       <div class="image thumbnail">
                             <img loading="lazy" src="{quote_url(v['custom_thumbnail'])}">
                       </div>
                       <div class="content{' removed' if v["removed"] else ''}{' unlisted' if v["unlisted"] else ''}">
                         <h3 class="title">{html.escape(v['title'])}</h3>
-                        <p>{v['view_count']} views, {v['upload_date'][:4]}-{v['upload_date'][4:6]}-{v['upload_date'][6:]}</p>
+                        <p>{v.get('view_count',"N/A")} views, {v['upload_date'][:4]}-{v['upload_date'][4:6]}-{v['upload_date'][6:]}</p>
                       </div>
                     </a>
                 </div>
