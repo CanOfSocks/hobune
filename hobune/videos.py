@@ -117,6 +117,10 @@ def create_video_pages(config, channels, templates, html_ext):
                     torrent_url = config.files_web_path + os.path.join(root, torrent_file)[len(config.files_path):]
                     download_buttons_html += generate_download_button("Torrent", torrent_url)
 
+                if (hash_file := f"{base}.blake3") in files:
+                    hash_url = config.files_web_path + os.path.join(root, hash_file)[len(config.files_path):]
+                    download_buttons_html += generate_download_button("File hashes (blake3)", hash_url)
+
                 # Create HTML
                 upload_date = v.get('upload_date', "00000000")
                 page_html = templates["video"].format(
