@@ -212,7 +212,7 @@ def create_channel_pages(config, templates, channels, html_ext):
                   "w") as f:
             cards = ""
             subtitle = f"<p class=\"subtitle\">{get_channel_aka(channels[channel])}<br>{videos_count_str}</p>"
-            for v in sorted(channels[channel].videos, key=lambda x: x.get('upload_date', 0), reverse=True):
+            for v in sorted(channels[channel].videos, key=lambda x: int(x.get('upload_date', 0)), reverse=True):
                 upload_date = v.get('upload_date', "00000000")
                 cards += f"""
                 <div class="card searchable" data-search="{html.escape(v['title'])}" data-date="{upload_date}" data-views="{v.get('view_count', -1)}">
@@ -253,3 +253,4 @@ def create_channel_pages(config, templates, channels, html_ext):
             sort=" hide",
             cards=channel_index
         )))
+
