@@ -7,10 +7,10 @@ from hobune.comments import getCommentsHTML
 from hobune.logger import logger
 from hobune.util import generate_meta_tags, quote_url, no_traverse
 
-
 def generate_download_button(name, url):
+
     return f"""
-    <a href="{url}?download=true">
+    <a href="{quote_url(url=url)}?download=true">
         <div class="button download">
             <i class="icon download"></i> {html.escape(name)}
         </div>
